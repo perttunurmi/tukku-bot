@@ -1,9 +1,16 @@
+if (process.argv.length < 2) {
+	console.log("anna sitä argumenttia!");
+	Error;
+}
+
+
 require('dotenv').config();
 const { Client, IntentBitField, IntentsBitField, Guild } = require('discord.js');
 
+
 const client = new Client({
 	intents: [
-		IntentsBitField.Flags.Guild,
+		IntentsBitField.Flags.Guilds,
 		IntentsBitField.Flags.GuildMembers,
 		IntentsBitField.Flags.GuildMessages,
 		IntentsBitField.Flags.MessageContent,
@@ -13,15 +20,11 @@ const client = new Client({
 }
 )
 
-if (process.argv.length < 2) {
-	console.log("anna sitä argumenttia!");
-	Error;
-}
-
 
 client.on('ready', (c) => {
 	console.log(`${c.user.tag} is ready for action`);
 });
+
 
 client.on('messageCreate', (msg) => {
 	if (!msg.author.bot) {
@@ -50,5 +53,6 @@ client.on('messageCreate', (msg) => {
 		}
 	}
 });
+
 
 client.login(process.env.TOKEN);
