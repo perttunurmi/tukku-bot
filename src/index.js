@@ -1,7 +1,10 @@
 const { Client, Collection, Events, GatewayIntentBits, Guild, IntentsBitField } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
+const { token } = require('../config.json')
 require('dotenv').config();
+
+const date = new Date();
 
 
 const client = new Client({
@@ -16,16 +19,20 @@ const client = new Client({
 }
 )
 
-
-client.on('ready', (c) => {
-	console.log(`${c.user.tag} is ready`);
+// When the client is ready, run this code (only once).
+// The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
+// It makes some properties non-nullable.
+client.once(Events.ClientReady, readyClient => {
+	console.log(`Discord bot ${readyClient.user.tag} started ${date}`);
 });
 
 
 client.commands = new Collection();
 
+
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
+
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
@@ -66,4 +73,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 
-client.login(process.env.TOKEN); // needs dotenv package
+client.login(token);
