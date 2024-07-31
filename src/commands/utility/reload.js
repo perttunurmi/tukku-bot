@@ -5,11 +5,11 @@ module.exports = {
 		.setName('reload')
 		.setDescription('Kehittäjille, lataa uusimman version komennosta.')
 		.addStringOption(option =>
-			option.setName('command')
-				.setDescription('The command to reload.')
+			option.setName('komento')
+				.setDescription('Komento joka ladataan uudelleen')
 				.setRequired(true)),
 	async execute(interaction) {
-		const commandName = interaction.options.getString('command', true).toLowerCase();
+		const commandName = interaction.options.getString('komento', true).toLowerCase();
 		const command = interaction.client.commands.get(commandName);
 
 		if (!command) {

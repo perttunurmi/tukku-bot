@@ -1,4 +1,4 @@
-const { Client, Collection, Events, GatewayIntentBits, Guild, IntentsBitField } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, Guild, IntentsBitField, messageLink } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 const { token } = require('../config.json')
@@ -72,5 +72,8 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+client.on('messageCreate', message => {
+	console.log(message.author.globalName + " said \"" + message.content + "\" in " + message.channel.name + ", " + message.guild.name + " at " + date)
+})
 
 client.login(token);

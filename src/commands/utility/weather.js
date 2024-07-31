@@ -14,17 +14,20 @@ let weather = new OpenWeatherAPI({
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('weather')
-		.setDescription('Tulosta sää. Oletussijainti: Helsinki'),
+		.setDescription('Tulosta sää. Oletussijainti: Helsinki')
+		.addStringOption(option =>
+			option.setName('kaupunki')
+				.setDescription('Kaupunki')
+				.setRequired(false)),
 	async execute(interaction) {
 		// interaction.user is the object representing the User who ran the command
 		// interaction.member is the GuildMember object, which represents the user in the specific guild
 		console.log(`${interaction.user.username} ran /weather command ${date}`)
 
-		/* 
-		you can use setters as well:
-		weather.setLocationByName("New York")
-		...
-		*/
+
+		locationName = interaction.options.getString('kaupunki', false) || "Helsinki";
+		weather.setLocationByName(locationName)
+
 
 		weather.getCurrent().then(data => {
 			interaction.reply(`Current temperature in ${locationName}: \*\*${data.weather.temp.cur}\u00B0C\*\*`);
