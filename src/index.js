@@ -2,7 +2,6 @@ const { Client, Collection, Events, GatewayIntentBits, Guild, IntentsBitField, m
 const fs = require('node:fs');
 const path = require('node:path');
 const { token } = require('../config.json')
-require('dotenv').config();
 
 const date = new Date();
 
