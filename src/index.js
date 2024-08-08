@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { token } = require('../config.json')
 
+
 const date = new Date();
 
 
@@ -18,6 +19,7 @@ const client = new Client({
 }
 )
 
+
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
@@ -31,6 +33,7 @@ client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
+
 
 
 for (const folder of commandFolders) {
@@ -52,12 +55,15 @@ for (const folder of commandFolders) {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
+
 	const command = interaction.client.commands.get(interaction.commandName);
+
 
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
+
 
 	try {
 		await command.execute(interaction);
@@ -71,8 +77,10 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+
 client.on('messageCreate', message => {
 	console.log(message.author.globalName + " said \"" + message.content + "\" in " + message.channel.name + ", " + message.guild.name + " at " + date)
 })
+
 
 client.login(token);
