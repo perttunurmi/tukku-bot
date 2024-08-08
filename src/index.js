@@ -4,9 +4,6 @@ const path = require('node:path');
 const { token } = require('../config.json')
 
 
-const date = new Date();
-
-
 const client = new Client({
 	intents: [
 		IntentsBitField.Flags.Guilds,
@@ -24,6 +21,7 @@ const client = new Client({
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, readyClient => {
+	const date = new Date();
 	console.log(`Discord bot ${readyClient.user.tag} started ${date}`);
 });
 
@@ -79,6 +77,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 
 client.on('messageCreate', message => {
+	const date = new Date();
 	console.log(message.author.globalName + " said \"" + message.content + "\" in " + message.channel.name + ", " + message.guild.name + " at " + date)
 })
 
