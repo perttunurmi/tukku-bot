@@ -1,1 +1,1 @@
-# First discord bot project
+Discord Bot
